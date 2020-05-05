@@ -5,7 +5,6 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                ti bara rawa7 galet Laya Bara RAWA7 HA 
                 <div class="card-body">
                     <div class="card-title">
                         <div class="d-flex align-items-center">
