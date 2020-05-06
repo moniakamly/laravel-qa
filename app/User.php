@@ -57,4 +57,11 @@ class User extends Authenticatable
 
          return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?s=" . $size;
     }
+
+    //a User can favorite more than one question 
+    // we need to specify the name of the table in the second argument or else we'll have an error 
+    public function favorites() {
+        return $this->belongsToMany(Question::class, 'favorites')->withTimestamps(); //, 'user_id', 'question_id'); 
+    }
+
 }
