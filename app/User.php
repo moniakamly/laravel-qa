@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Question; 
+use App\Answer; 
 
 class User extends Authenticatable
 {
@@ -92,6 +94,24 @@ class User extends Authenticatable
         $question->votes_count = $upVotes + $downVotes; 
         $question->save(); 
 
+    }
+
+
+    public function voteAnswer(Answer $answer, $vote) {
+        $voteAnswers = $this->voteAnswers(); 
+        if ($voteAnswers->where('votable_id', $answer->id)->exists()) {
+            $voteAnswers->updateExistingPivot($answer, ['vote' => $vote]);
+        }
+        else {
+            $voteAnswers->attach($answer, ['vote' => $vote]); 
+        }
+
+        $answer->load('votes'); 
+        $downVotes = (int) $answer->downVotes()->sum('vote'); // we use sum instead of count because count will return a positive number which is
+        // the total number of vote while sum will sum the votes and return both negative and positive number 
+        $upVotes = (int) $answer->upVotes()->sum('vote'); 
+        $answer->votes_count = $upVotes + $downVotes; 
+        $answer->save(); 
     }
 
 }

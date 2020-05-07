@@ -24,7 +24,7 @@
                                 onclick="event.preventDefault(); document.getElementById('up-vote-question-{{ $question->id }}').submit();"
                                 >
                                     <i class="fa fa-caret-up fa-3x"></i>
-                                </a>
+                            </a>
                                 <form id="up-vote-question-{{ $question->id }}" action="/questions/{{$question->id}}/vote" method="POST" style="display:none">
                                     @csrf
                                     <input type="hidden" name="vote" value="1">
@@ -56,7 +56,7 @@
                                             @endif
                                 </form>
                         </div>
-                        
+
                         <div class="media-body ml-4">
                             {!! $question->body_html !!}
                             <div class="float-right">
