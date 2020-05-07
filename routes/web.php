@@ -31,3 +31,6 @@ Route::post('/answers/{answer}/accept', 'AcceptAnswerController')->name('answers
 // Following routes to make the button favorite question work 
 Route::post('/questions/{question}/favorites', 'FavoriteController@store')->name('questions.favorite'); 
 Route::delete('/questions/{question}/favorites', 'FavoriteController@destroy')->name('questions.unfavorite'); 
+
+// a route for voting for the question 
+Route::post('/questions/{question}/vote', 'VoteQuestionController'); 

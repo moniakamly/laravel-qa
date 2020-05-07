@@ -64,4 +64,34 @@ class User extends Authenticatable
         return $this->belongsToMany(Question::class, 'favorites')->withTimestamps(); //, 'user_id', 'question_id'); 
     }
 
+    // A user can vote for either a question or an answer 
+
+    public function voteQuestions() {
+
+        return $this->morphedByMany(Question::class, 'votable'); 
+    }
+
+    public function voteAnswers() {
+
+        return $this->morphedByMany(Answer::class, 'votable'); 
+    }
+
+    public function voteQuestion(Question $question , $vote) {
+        $voteQuestions = $this->voteQuestions(); 
+        if ($voteQuestions->where('votable_id', $question->id)->exists()) {
+            $voteQuestions->updateExistingPivot($question, ['vote' => $vote]);
+        }
+        else {
+            $voteQuestions->attach($question, ['vote' => $vote]); 
+        }
+
+        $question->load('votes'); 
+        $downVotes = (int) $question->downVotes()->sum('vote'); // we use sum instead of count because count will return a positive number which is
+        // the total number of vote while sum will sum the votes and return both negative and positive number 
+        $upVotes = (int) $question->upVotes()->sum('vote'); 
+        $question->votes_count = $upVotes + $downVotes; 
+        $question->save(); 
+
+    }
+
 }
