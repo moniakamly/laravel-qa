@@ -28,10 +28,12 @@
                                 <div class="col-4"></div>
                                 <div class="col-4"></div>
                                 <div class="col-4">
-                                    @include('shared._author', [
+                                    {{-- @include('shared._author', [
                                         'model' => $question, 
                                         'label'  => 'Asked'
-                                    ]) 
+                                    ])  --}}
+                                    {{-- Using vue js component --}}
+                                    <user-info :model="{{ $question }}" label="Asked"> </user-info>
                                 </div>
                             </div>
                         </div>

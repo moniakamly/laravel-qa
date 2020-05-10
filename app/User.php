@@ -22,6 +22,12 @@ class User extends Authenticatable
     ];
 
     /**
+     * adding the accesors as appends so that they will be included when using vue js 
+     */
+    
+    protected $appends = ['url', 'avatar'];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
