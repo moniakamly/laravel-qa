@@ -36,4 +36,4 @@ Route::post('/questions/{question}/vote', 'VoteQuestionController');
 // route for voting the answers
 Route::post('/answers/{answer}/vote', 'VoteAnswerController');
 
-Route::post('/test/{test}/vote', 'VoteAnswerController'); 
+Route::post('/test/{test}', 'VoteAnswerController'); 
